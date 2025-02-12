@@ -1,0 +1,40 @@
+<html>
+    <script>
+    
+        // const xhr=new XMLHttpRequest();
+        // xhr.addEventListener('load',(response)=>{
+        //     // console.log(xhr.response)
+        // })
+        // xhr.open('GET','https://supersimplebackend.dev/greeting');
+        // xhr.send();
+       
+        // async function  greet(){
+        //    const msg= await fetch('https://supersimplebackend.dev/greeting')
+        //     const greeting=await msg.text();
+        //     console.log(greeting);
+
+       
+        // }
+        // greet();
+        async function postMethoed(){
+            const response= await fetch('https://supersimplebackend.dev/greeting',{
+                method:'POST',
+                headers:{
+                'Content-Type':'application/json'
+              },
+              body:JSON.stringify({
+                name:'suriya'
+              })
+            });
+            const text=response.text()
+            console.log(text);
+
+           
+        }
+        postMethoed()
+       
+
+        
+    </script>
+
+</html>
