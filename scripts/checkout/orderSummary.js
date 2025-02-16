@@ -114,6 +114,17 @@ function setupEventListeners() {
       renderPaymentSummary();
     };
   });
+  if (cart.cartItems.length === 0) {
+    document.querySelector('.js-order-summary').innerHTML = `
+      <div data-testid="empty-cart-message">
+          Your cart is empty.
+      </div>
+      <a class="button-primary view-products-link " href="." data-testid="view-products-link">
+          View products
+      </a>
+    `;
+  }
+  
 }
 
 renderOrderSummary();

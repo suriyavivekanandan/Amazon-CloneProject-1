@@ -6,29 +6,23 @@ import { generateCart } from "../data/cart-class.js";
 
 async function loadPage(){
  try{
-      // throw 'error1'
-   await generateProductsFetch();
-   const value= await new Promise((resolve,reject) => {
-     generateCart(()=>{
-        reject('error3');
-         resolve('25');
-         
-     });   
- });
- console.log(value);
- }   
- catch{
+     await Promise.all([
+         generateProductsFetch(),
+        generateCart()
+     ]);
+  
+   
+ }
+ 
+ catch(error){
     console.log('unkonow error occured')
  }
 
 renderCheckoutHeader();
 renderOrderSummary();
 renderPaymentSummary();
-return 'value2'
-};
-loadPage().then((value)=>{
-    console.log(value);
-});
+}
+loadPage();
 
 
 

@@ -16,23 +16,41 @@
        
         // }
         // greet();
-        async function postMethoed(){
-            const response= await fetch('https://supersimplebackend.dev/greeting',{
-                method:'POST',
-                headers:{
-                'Content-Type':'application/json'
-              },
-              body:JSON.stringify({
-                name:'suriya'
-              })
-            });
-            const text=response.text()
-            console.log(text);
+        // async function postMethoed(){
+        //     const response= await fetch('https://supersimplebackend.dev/greeting',{
+        //         method:'POST',
+        //         headers:{
+        //         'Content-Type':'application/json'
+        //       },
+        //       body:JSON.stringify({
+        //         name:'suriya'
+        //       })
+        //     });
+        //     const text=response.text()
+        //     console.log(text);
 
            
+        // }
+        // postMethoed()
+        try{
+        const xhr=new XMLHttpRequest();
+        try{
+        xhr.addEventListener('load',()=>{
+          const response=xhr.response
+          console.log(response)
+        })}
+        catch(error){
+          console.log('Error processing response:', error);
         }
-        postMethoed()
-       
+       xhr.addEventListener('error',()=>{
+        console.log('Network error or CORS issue occurred.');
+       })
+        xhr.open('GET','https://amazon.com')
+        xhr.send();
+      }
+        catch(error){
+          console.log('your response is blocke by the backend')
+        }
 
         
     </script>

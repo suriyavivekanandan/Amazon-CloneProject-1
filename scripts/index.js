@@ -1,11 +1,29 @@
 // import { calculateCartQuantity,addToCart } from "../data/cart.js";
 import { cart } from "../data/cart-class.js";
-import { products,generateProducts } from "../data/products.js";
-generateProducts(renderProductsGrid);
+import { products,generateProductsFetch } from "../data/products.js";
+generateProductsFetch().then(renderProductsGrid)
 function renderProductsGrid(){
 
 let productHTML = ''
-products.forEach((product) => {
+const url =new URL(window.location.href);
+const search=url.searchParams.get('suriya')
+let filterProducts =products;
+if (search) {
+    filterProducts = products.filter((product) => {
+      let matchingKeyword = false;
+
+      product.keywords.forEach((keyword) => {
+        if (keyword.toLowerCase().includes(search.toLowerCase())) {
+          matchingKeyword = true;
+        }
+      });
+
+      return matchingKeyword ||
+        product.name.toLowerCase().includes(search.toLowerCase());
+    });
+  }
+
+filterProducts.forEach((product)=>{
   productHTML += `
     <div class="product-container">
       <div class="product-image-container">
@@ -53,7 +71,7 @@ document.querySelector('.js-products-grid').innerHTML += productHTML;
 function updateCartQuantity(){
   const cartQunatity=cart.calculateCartQuantity();
   document.querySelector('.js-cart-quantity').innerHTML=cartQunatity;
-  console.log(cartQunatity);
+ 
 }
 updateCartQuantity();
 
@@ -74,8 +92,14 @@ document.querySelectorAll('.js-add-to-cart')
 
           });
       });
-    }
+    
 
+    document.querySelector('.js-search-button')
+    .addEventListener('click', () => {
+      const search = document.querySelector('.js-search-bar').value;
+      window.location.href = `index.html?suriya=${search}`;
+    });
+  }
 
  
    

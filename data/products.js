@@ -6,6 +6,7 @@ export function getProduct(productId){
   matchingProduct=product;
   }
   });
+ 
   return matchingProduct;
 }
 class product{
@@ -58,8 +59,8 @@ class Appliances extends product{
   
 }
 export let products=[];
-export function generateProductsFetch(){
- const promise= fetch('https://supersimplebackend.dev/products').then((response)=>{
+export async function generateProductsFetch(){
+ const promise= await fetch('https://supersimplebackend.dev/products').then((response)=>{
    return response.json();
   }).then((productDetails)=>{
     products=productDetails.map((productDetails)=>{
@@ -71,42 +72,15 @@ export function generateProductsFetch(){
       }
      return new product(productDetails)
     });
-    console.log('load products');
-    //catch is used in promises to catch the error.
+
+  
   }).catch((error)=>{
     console.log('unkonow error occured')
   })
   return promise;
 };
-/*generateProductsFetch().then(()=>{
-  console.table('hello');
-})*/
 
- export function generateProducts(fun){
-    const xhr=new XMLHttpRequest();
-    xhr.addEventListener('load',()=>{
-      products=JSON.parse(xhr.response).map((productDetails)=>{
-        if(productDetails.type ==='clothing'){
-          return new Clothing(productDetails);
-        }
-        if(productDetails.type ==='appliances'){
-          return new Appliances(productDetails);
-        }
-       return new product(productDetails)
-      });
-      
-      fun();
-    });
-    //error handling in callback() value
-    xhr.addEventListener('error',()=>{
-      console.log('unkonow error occured')
-    })
 
-    xhr.open('GET','https://supersimplebackend.dev/products')
-    xhr.send()
-    
-  }
-  
 
 
  
